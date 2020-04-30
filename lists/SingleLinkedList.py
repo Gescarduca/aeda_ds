@@ -2,6 +2,8 @@ from list import List
 from nodes import DoubleListNode as dn
 from nodes import SingleListNode as sn
 #from exceptions import InvalidPositionException as ipe
+#from exceptions import EmptyListException as ele
+#from exceptions import NoSuchElementException as nse
 
 
 
@@ -102,30 +104,33 @@ class single_linked_list(List):
     # If the specified position is size(), insert corresponds to insertLast.
     # Throws InvalidPositionException.
     def insert(self, element, position):
-        if position>self.size() or position < 0:
-            #raise ipe() it is supposed to raise the exception but the import is a bit funky cant quite get it
-            # to work, run time complains about non existing module
-            #print("Outside of boundaries")
-            raise Exception("Invalid Position!")
-            
-        else:
-            number = 0
-            if position == 0:
-                self.insert_first(element)
-            elif position == self.size():
-                self.insert_last(element)
+        try:
+            if position>self.size() or position < 0:
+                #raise ipe() it is supposed to raise the exception but the import is a bit funky cant quite get it
+                # to work, run time complains about non existing module
+                #print("Outside of boundaries")
+                raise Exception
+                
             else:
-                node_to_iterate = self.head
-                while node_to_iterate:
-                    number += 1
-                    if number == position:
-                        node_to_iterate.next_node = sn(element,node_to_iterate.next_node)
-                        #print("teste1")
-                        return
-                    else:
-                        node_to_iterate = node_to_iterate.next_node
-                        #print("teste")
-        
+                number = 0
+                if position == 0:
+                    self.insert_first(element)
+                elif position == self.size():
+                    self.insert_last(element)
+                else:
+                    node_to_iterate = self.head
+                    while node_to_iterate:
+                        number += 1
+                        if number == position:
+                            node_to_iterate.next_node = sn(element,node_to_iterate.next_node)
+                            self.number_elements+=1
+                            #print("teste1")
+                            return
+                        else:
+                            node_to_iterate = node_to_iterate.next_node
+                            #print("teste")
+        except:
+            print("InvalidPosition!")
                     
 
     # Removes and returns the element at the first position in the list.
@@ -136,6 +141,8 @@ class single_linked_list(List):
         else:
             node_to_remove = self.head
             self.head = node_to_remove.next_node
+            self.number_elements-=1
+            return node_to_remove.get_element()
 
     # Removes and returns the element at the last position in the list.
     # Throws EmptyListException.
@@ -152,6 +159,7 @@ class single_linked_list(List):
                     node_to_iterate = node_to_iterate.next_node
                 
                 previous_node = self.tail
+                self.number_elements-=1
                 return node_to_iterate.get_element()
         except:
             print("EmptyListException") 
@@ -161,13 +169,36 @@ class single_linked_list(List):
     # Removes and returns the element at the specified position in the list.
     # Range of valid positions: 0, ..., size()-1.
     # Throws InvalidPositionException.
-    def remove(self, position): pass
+    def remove(self, position):
+        number = 0
+        try:
+            if position < 0 or position>self.size()-1:
+                raise Exception
+            else:
+                node_to_iterate = self.head
+                previous_node = None
+                while node_to_iterate:
+                    if number == position:
+                        node_to_remove = node_to_iterate
+                        previous_node.set_next(node_to_remove.next_node)
+                        self.number_elements-=1
+                        return node_to_remove.get_element()
+                    else:
+                        previous_node = node_to_iterate
+                        node_to_iterate = node_to_iterate.next_node
+                        number+=1
+        except:
+            print("InvalidPositionException")
     
     # Removes all elements from the list.
-    def make_empty(self): pass
+    def make_empty(self):
+        self.head = None
+        self.tail = None
+        self.number_elements = 0
 
     # Returns an iterator of the elements in the list (in proper sequence).
-    def iterator(self): pass
+    def iterator(self):pass
+        
 
 
     def print_list(self):
@@ -199,7 +230,15 @@ llist.insert("C",1)
 #print(llist.get_first())
 
 #remove_last_node
-print(llist.remove_last())
+#print(llist.remove_last())
 
+#remove_first_node
+#print(llist.remove_first())
 
-llist.print_list()
+#remove_node
+#print(llist.remove(1))
+
+#iterator
+llist.iterator()
+
+#llist.print_list()
