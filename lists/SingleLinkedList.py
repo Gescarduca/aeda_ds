@@ -8,21 +8,23 @@ from nodes import SingleListNode as sn
 
 
 class single_linked_list(List):
-    # Returns true iff the list contains no elements.
+    
     def __init__(self):
         self.head = None
         self.tail = None
         self.number_elements = 0
 
+    # Returns true iff the list contains no elements.
     def is_empty(self):
         if self.head == None:
-            return False
-        return True
+            return True
+        return False
             
 
     # Returns the number of elements in the list.
     def size(self):
         return self.number_elements
+
     # Returns the first element of the list.
     # Throws EmptyListException.
     def get_first(self):
@@ -54,7 +56,7 @@ class single_linked_list(List):
         aux = 0
         node_to_iterate = self.head
         if(position<0 or position>self.size()):
-            print("position invalid")
+            print("Position invalid!")
         while aux < position:
             node_to_iterate = node_to_iterate.next_node
             aux+=1
