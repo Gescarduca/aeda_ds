@@ -55,7 +55,7 @@ class single_linked_list(List):
     def get(self, position):
         aux = 0
         node_to_iterate = self.head
-        if(position<0 or position>self.size()):
+        if position<0 or position>self.size()-1:
             print("Position invalid!")
         while aux < position:
             node_to_iterate = node_to_iterate.next_node
@@ -81,9 +81,11 @@ class single_linked_list(List):
     # Inserts the specified element at the first position in the list.
     def insert_first(self, element):
         new_node  = sn(element,self.head)
-        new_node.next_node = self.head
+        #new_node.next_node = self.head
         self.head = new_node
         self.number_elements += 1
+        if self.tail == None:
+            self.tail = self.head
 
     # Inserts the specified element at the last position in the list.
     def insert_last(self, element):
@@ -96,6 +98,7 @@ class single_linked_list(List):
         node_to_iterate = self.head
         while node_to_iterate.next_node:
             node_to_iterate = node_to_iterate.next_node
+        
         node_to_iterate.next_node = new_node
         self.tail = new_node
         self.number_elements +=1
@@ -131,6 +134,7 @@ class single_linked_list(List):
                         else:
                             node_to_iterate = node_to_iterate.next_node
                             #print("teste")
+                    
         except:
             print("InvalidPosition!")
                     
@@ -159,8 +163,11 @@ class single_linked_list(List):
                 while node_to_iterate.next_node:
                     previous_node = node_to_iterate
                     node_to_iterate = node_to_iterate.next_node
-                
-                previous_node = self.tail
+                    
+
+                self.tail = previous_node
+                self.tail.set_next(None)
+                #print(self.tail.get_element())
                 self.number_elements-=1
                 return node_to_iterate.get_element()
         except:
@@ -174,7 +181,7 @@ class single_linked_list(List):
     def remove(self, position):
         number = 0
         try:
-            if position < 0 or position>self.size()-1:
+            if position < 0 or position>=self.size():
                 raise Exception
             else:
                 node_to_iterate = self.head
@@ -212,7 +219,7 @@ class single_linked_list(List):
     def display(self):
         print("teste")
 
-
+# a partir daqui corre
 
 llist = single_linked_list()
 llist.insert_first("A")
@@ -231,16 +238,16 @@ llist.insert("C",1)
 #get_first_method
 #print(llist.get_first())
 
-#remove_last_node
+#remove_last_node erro
 #print(llist.remove_last())
 
 #remove_first_node
 #print(llist.remove_first())
 
-#remove_node
-#print(llist.remove(1))
+#remove_node erro
+print(llist.remove(1))
 
 #iterator
-llist.iterator()
+#llist.iterator()
 
-#llist.print_list()
+llist.print_list()
