@@ -91,11 +91,9 @@ class single_linked_list(List):
 
     # Inserts the specified element at the last position in the list.
     def insert_last(self, element):
-        #print("t") 
         new_node = sn(element,None)
         if self.head is None:
             self.head = new_node
-            #print("teste")
             return
         else:
             self.tail.set_next(new_node)
@@ -110,9 +108,6 @@ class single_linked_list(List):
     def insert(self, element, position):
         try:
             if position>self.size() or position < 0:
-                #raise ipe() it is supposed to raise the exception but the import is a bit funky cant quite get it
-                # to work, run time complains about non existing module
-                #print("Outside of boundaries")
                 raise Exception
             else:
                 number = 0
@@ -124,15 +119,12 @@ class single_linked_list(List):
                     node_to_iterate = self.head
                     while node_to_iterate:
                         number += 1
-                        if number == position:# se o nosso count for igual à posição pretendida 
-                            node_to_iterate.next_node = sn(element,node_to_iterate.next_node) # no nó em que estamos o próximo  vai o novo nó e o próximo do novo nó vai
-                            #ser o nó seguinte do anterior
+                        if number == position:
+                            node_to_iterate.next_node = sn(element,node_to_iterate.next_node)
                             self.number_elements+=1
-                            #print("teste1")
                             return
                         else:
                             node_to_iterate = node_to_iterate.next_node
-                            #print("teste")
                     
         except:
             print("InvalidPosition!")
@@ -210,8 +202,6 @@ class single_linked_list(List):
         self.my_list = lit(self.head)
         for i in range(self.number_elements):
             print(self.my_list.next())
-            #print(self.number_elements)
-            #print(i)
         return self.my_list
 
         
