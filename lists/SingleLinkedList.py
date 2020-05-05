@@ -1,6 +1,8 @@
 from list import List
 from nodes import DoubleListNode as dn
 from nodes import SingleListNode as sn
+from list_iterator import list_iterator as lit
+#from ..exceptions import EmptyListException
 #from exceptions import InvalidPositionException as ipe
 #from exceptions import EmptyListException as ele
 #from exceptions import NoSuchElementException as nse
@@ -95,13 +97,10 @@ class single_linked_list(List):
             self.head = new_node
             #print("teste")
             return
-        node_to_iterate = self.head
-        while node_to_iterate.next_node:
-            node_to_iterate = node_to_iterate.next_node
-        
-        node_to_iterate.next_node = new_node
-        self.tail = new_node
-        self.number_elements +=1
+        else:
+            self.tail.set_next(new_node)
+            self.tail = new_node
+            self.number_elements +=1
 
     # Inserts the specified element at the specified position in the list.
     # Range of valid positions: 0, ..., size().
@@ -115,7 +114,6 @@ class single_linked_list(List):
                 # to work, run time complains about non existing module
                 #print("Outside of boundaries")
                 raise Exception
-                
             else:
                 number = 0
                 if position == 0:
@@ -126,8 +124,9 @@ class single_linked_list(List):
                     node_to_iterate = self.head
                     while node_to_iterate:
                         number += 1
-                        if number == position:
-                            node_to_iterate.next_node = sn(element,node_to_iterate.next_node)
+                        if number == position:# se o nosso count for igual à posição pretendida 
+                            node_to_iterate.next_node = sn(element,node_to_iterate.next_node) # no nó em que estamos o próximo  vai o novo nó e o próximo do novo nó vai
+                            #ser o nó seguinte do anterior
                             self.number_elements+=1
                             #print("teste1")
                             return
@@ -190,6 +189,7 @@ class single_linked_list(List):
                     if number == position:
                         node_to_remove = node_to_iterate
                         previous_node.set_next(node_to_remove.next_node)
+
                         self.number_elements-=1
                         return node_to_remove.get_element()
                     else:
@@ -206,18 +206,25 @@ class single_linked_list(List):
         self.number_elements = 0
 
     # Returns an iterator of the elements in the list (in proper sequence).
-    def iterator(self):pass
+    def iterator(self):
+        self.my_list = lit(self.head)
+        for i in range(self.number_elements):
+            print(self.my_list.next())
+            #print(self.number_elements)
+            #print(i)
+        return self.my_list
+
         
 
 
-    def print_list(self):
-        current_node = self.head
-        while current_node:
-            print(current_node.element)
-            current_node = current_node.next_node
+    #def print_list(self):
+        #current_node = self.head
+        #while current_node:
+            #print(current_node.element)
+            #current_node = current_node.next_node
 
-    def display(self):
-        print("teste")
+    #def display(self):
+        #print("teste")
 
 # a partir daqui corre
 
@@ -245,9 +252,11 @@ llist.insert("C",1)
 #print(llist.remove_first())
 
 #remove_node erro
-print(llist.remove(1))
+#print(llist.remove(1))
 
 #iterator
 #llist.iterator()
 
-llist.print_list()
+#llist.print_list()
+
+llist.iterator()
