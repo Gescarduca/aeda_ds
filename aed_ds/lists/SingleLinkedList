@@ -243,7 +243,7 @@ llist.insert("C",1)
 
 #remove_node erro
 #print(llist.remove(1))
-
+#teste
 #iterator
 #llist.iterator()
 
