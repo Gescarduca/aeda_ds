@@ -1,6 +1,6 @@
 from nodes import SingleListNode as sn
 #from ..exceptions import EmptyListException,InvalidPositionException,NoSuchElementException
-from iterator import Iterator as it
+from ..tad_iterator import Iterator as it
 #from exceptions import EmptyListException,InvalidPositionException,NoSuchElementException
 
 

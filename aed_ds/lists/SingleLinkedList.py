@@ -1,7 +1,7 @@
-from list import List
+from aed_ds.lists.tad_list import List
 from nodes import DoubleListNode as dn
 from nodes import SingleListNode as sn
-from list_iterator import list_iterator as lit
+from aed_ds.lists import list_iterator as lit
 #from ..exceptions import EmptyListException
 #from exceptions import InvalidPositionException as ipe
 #from exceptions import EmptyListException as ele
