@@ -1,18 +1,16 @@
 from main_package.ds.SingleLinkedListIterator import list_iterator
+from main_package.ds.DoubleLinkedList import DoubleLinkedList as dbl
 
 
 class double_linked_iterator(list_iterator):
-    def __init__(self, head, tail):
-        list_iterator.__init__(self, doubl)
-        self.last = tail
-        self.current_node = tail
+    def __init__(self, dbl):
+        list_iterator.__init__(self, dbl)
+        self.doubly_linked_list = dbl
 
     # Returns true iff the iteration has more elements in the reverse direction.
     # In other words, returns true if previous would return an element rather than throwing an exception.
     def has_previous(self):
-        if self.last.previous:
-            return True
-        return False
+        return self.current_node != None
 
     # Returns the previous element in the iteration.
     # Throws NoSuchElementException

@@ -4,12 +4,12 @@
 # from exceptions import EmptyListException,InvalidPositionException,NoSuchElementException
 # from tad_iterator import Iterator
 from main_package.tad_iterator import Iterator as it
-from main_package.ds.single_linked_list import single_linked_list
+from main_package.ds.single_linked_list import single_linked_list as sll
 from main_package.exceptions import NoSuchElementException
 
 class list_iterator(it):
-    def __init__(self, single_linked_list):
-       self.singly_linked_list = single_linked_list
+    def __init__(self, sll):
+       self.singly_linked_list = sll
        self.rewind()
 
 
