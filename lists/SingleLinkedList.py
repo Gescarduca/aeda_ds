@@ -1,7 +1,7 @@
-from aed_ds.lists.tad_list import List
+from list import List
 from nodes import DoubleListNode as dn
 from nodes import SingleListNode as sn
-from aed_ds.lists import list_iterator as lit
+from list_iterator import list_iterator as lit
 #from ..exceptions import EmptyListException
 #from exceptions import InvalidPositionException as ipe
 #from exceptions import EmptyListException as ele
@@ -243,7 +243,7 @@ llist.insert("C",1)
 
 #remove_node erro
 #print(llist.remove(1))
-#teste
+
 #iterator
 #llist.iterator()
 

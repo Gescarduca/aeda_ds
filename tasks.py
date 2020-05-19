@@ -21,7 +21,7 @@ def setupstream(c, username="amgs"):
 @task(setupstream)
 def sync(c):
     c.run("git fetch upstream")
-    c.run("git merge upstream/develop")
+    c.run("git merge upstream/master")
 
 @task
 def pr(c):

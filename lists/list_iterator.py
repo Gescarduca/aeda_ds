@@ -1,6 +1,7 @@
+
 from nodes import SingleListNode as sn
 #from ..exceptions import EmptyListException,InvalidPositionException,NoSuchElementException
-from ..tad_iterator import Iterator as it
+from iterator import Iterator as it
 #from exceptions import EmptyListException,InvalidPositionException,NoSuchElementException
 
 
@@ -62,3 +63,5 @@ class double_linked_iterator(list_iterator):
     # Restarts the iteration in the reverse direction. After fullForward, if the iteration is not empty, previous will return the last element in the iteration.
     @abstractmethod
     def full_forward(self): pass
+
+    
