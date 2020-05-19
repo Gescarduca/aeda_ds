@@ -1,8 +1,0 @@
-from list import List
-from nodes import DoubleListNode as dn
-from nodes import SingleListNode as sn
-from single_linked_list import single_linked_list
-
-class double_linked_list(single_linked_list):
-    def __init__(self):
-        pass
