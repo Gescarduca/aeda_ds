@@ -25,6 +25,7 @@ class list_iterator(it):
     def next(self):
         if not self.has_next():
             raise NoSuchElementException()
+
         element = self.current_node.get_element()
         self.current_node = self.current_node.get_next()
         return element
