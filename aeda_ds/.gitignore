@@ -1,0 +1,5 @@
+.vscode/
+*pyc
+htmlcov/
+.coverage
+program.py
