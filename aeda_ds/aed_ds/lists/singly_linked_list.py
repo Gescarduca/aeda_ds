@@ -10,6 +10,7 @@ class SinglyLinkedList(List):
         self.head = None
         self.tail = None
         self.num_elements = 0
+        
 
     def is_empty(self):
         return self.num_elements == 0
