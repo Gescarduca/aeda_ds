@@ -15,6 +15,7 @@ from main_package.ds.SingleLinkedListIterator import list_iterator as lit
 # from exceptions import InvalidPositionException as ipe
 # from exceptions import EmptyListException as ele
 # from exceptions import NoSuchElementException as nse
+from main_package.exceptions import InvalidPositionException
 
 
 class single_linked_list(List):
@@ -174,7 +175,7 @@ class single_linked_list(List):
         number = 0
         try:
             if position < 0 or position >= self.size():
-                raise Exception
+                raise InvalidPositionException
             else:
                 node_to_iterate = self.head
                 previous_node = None
@@ -189,7 +190,7 @@ class single_linked_list(List):
                         previous_node = node_to_iterate
                         node_to_iterate = node_to_iterate.next_node
                         number += 1
-        except:
+        except InvalidPositionException:
             print("InvalidPositionException")
 
     # Removes all elements from the list.
