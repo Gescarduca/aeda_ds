@@ -48,6 +48,7 @@ class HashTable(Dictionary):
         else:
             #slot.append((key, value))
             slot.append(item)
+            
 
 
     def update(self, k, v): pass
