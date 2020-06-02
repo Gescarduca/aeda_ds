@@ -1,75 +1,115 @@
-#from .tad_dictionary import Dictionary
-#from ..exceptions import NoSuchElementException, DuplicatedKeyException
-#from ..lists.singly_linked_list import SinglyLinkedList
-from aeda_ds.aed_ds.dictionaries.tad_dictionary import Dictionary
-from aeda_ds.aed_ds.dictionaries.item import Item
+# from .tad_dictionary import Dictionary
+# from ..exceptions import NoSuchElementException, DuplicatedKeyException
+# from ..lists.singly_linked_list import SinglyLinkedList
+
+from aed_ds.dictionaries.tad_dictionary import Dictionary
+from aed_ds.dictionaries.item import Item
+from aed_ds.lists.singly_linked_list import SinglyLinkedList
+from aed_ds.exceptions import DuplicatedKeyException
+from aed_ds.exceptions import NoSuchElementException
+import ctypes
+
 
 class HashTable(Dictionary):
     def __init__(self, size=101):
         self.limit = size
         self.current_number_of_elements = 0
-        #self.my_dict = {}
-        self.hashmap = [[] for in range(0, self.size)]
+        self.vec = (ctypes.py_object * size)()
+        for a in range(self.limit):
+            self.vec[a] = SinglyLinkedList()
 
     def hashing_func(self, key):
-        return sum([ord(c) for c in key])% self.size
+        return sum([ord(c) for c in key]) % self.limit
+
+    def has_key(self,key,list_to_search):
+        place_to_search = list_to_search
+        piter = place_to_search.iterator()
+        while piter.has_next():
+            obj_to_compare = piter.next()
+            if key == obj_to_compare.get_key():
+                return obj_to_compare
+            else:
+                return False
 
     def size(self):
-        return self.limit
+        return self.current_number_of_elements
 
-    def is_full(self): 
-        if self.current_number_of_elements == limit:
+    def is_full(self):
+        if self.current_number_of_elements == self.limit:
             return True
 
-    def get(self, key):
-        hash_key = self.hashing_func(key)
-        slot = self.my_dict[hash_key]
-        for kv in slot:
-            k, v  = kv
-            if key == k:
-                return v
-            else:
-                raise KeyError("Does not exist")
-
-    def insert(self, key, value):
-        hash_key = self.hashing_func(key)
-        key_exists = False
-        #slot = self.my_dict[hash_key]
-        slot = self.hashmap[hash_key]
-        item = Item(key,value)
-        for i, kv in enumerate(slot):
-            k, v = kv
-            if key == k:
-                key_exists = True
-                break
-        if key_exists:
-           # slot[i] = ((key, value))
-           slot[i] =  item
+    def get(self, k):
+        hash_key = self.hashing_func(k)
+        slot = self.vec[hash_key]
+        element = self.has_key(k,slot)
+        if not element:
+            raise NoSuchElementException
         else:
-            #slot.append((key, value))
-            slot.append(item)
-            
+            return element.get_value()
 
-
-    def update(self, k, v): pass
-
-    def remove(self, key):
-        hash_key = self.hashing_func(key)
+    def insert(self, k, v):
+        hash_key = self.hashing_func(k)
         key_exists = False
-        slot = self.hashmap[hash_key]
-        for i, kv in enumerate(slot):
-            k, v = kv
-            if k == key:
-                key_exists = True
-                break
-        if key_exists:
-            slot.remove
+        slot = self.vec[hash_key]
+        item = Item(k, v)
+        #need to check if the key in items already exists
+        if slot.is_empty():
+            slot.insert_first(item)
+        else:
+            true_key = self.has_key(k,slot)
+            if true_key == False:
+                slot.insert_first(item)
+            else:
+                raise DuplicatedKeyException
+        self.current_number_of_elements+=1
 
-    def keys(self): pass
+    def update(self, k, v):
+        hash_key = self.hashing_func(k)
+        slot = self.vec[hash_key]
+        if not self.has_key(k,slot):
+            raise NoSuchElementException
+        else:
+            item_to_update = self.has_key(k,slot)
+            item_to_update.set_value(v)
 
-    def values(self): pass
+    def remove(self, k):
+        hash_key = self.hashing_func(k)
+        slot = self.vec[hash_key]
+        list_iter = slot.iterator()
+        position = 0
+        while list_iter.has_next():
+            if k == list_iter.next().get_key():
+                slot.remove(position)
+            else:
+                position+=1
+        self.current_number_of_elements-=1
 
-    def items(self): pass
+    def keys(self):
+        my_list = []
+        for bucket in self.vec:
+            bucket_iter = bucket.iterator()
+            while bucket_iter.has_next():
+                element = bucket_iter.next().get_key()
+                my_list.append(element)
+        return my_list
 
-d = HashTable()
-print(d)
+    def values(self):
+        my_list = []
+        for bucket in self.vec:
+            bucket_iter = bucket.iterator()
+            while bucket_iter.has_next():
+                element = bucket_iter.next().get_value()
+                my_list.append(element)
+        return my_list
+
+    def items(self):
+        my_list_of_buckets = []
+        for bucket in self.vec:
+            bucket_iter = bucket.iterator()
+            my_list_per_bucket = []
+            while bucket_iter.has_next():
+                key = bucket_iter.next().get_key()
+                value = bucket_iter.next().get_value()
+                kv = (key,value)
+                my_list_per_bucket.append(kv)
+            my_list_of_buckets.append(my_list_per_bucket)
